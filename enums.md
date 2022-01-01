@@ -1,0 +1,39 @@
+- `Enum`
+  - module that includes functions for working with enumerables
+    - example: `List`
+  - functions
+    - `all?`
+      - return `true` if everything is true, otherwise false
+    - `any?`
+      - if any are true, return `true`
+    - `chunk_every`
+      - break up collection into smaller groups
+    - `chunk_by`
+      - chunk by based on something other than size
+    - `map_every`
+      - apply function every `x` items
+    - `each`
+      - iterate over a collection without producing a new value
+      - return `:ok` atom
+    - `map`
+      - apply function to each item, and produce a new collection
+    - `min`
+      - find minimal value in collection
+    - `max`
+      - find maximal value in collection
+    - `filter`
+      - filter elements that evaluate to true
+    - `reduce`
+      - distill collection into a single value
+    - `sort`
+      - sorts collection
+    - `uniq`
+      - remove duplicates from collection
+    - `uniq_by`
+      - removes duplicates based on a conditional function
+  - capture operator (`&`)
+    - example
+      - before capture operator
+        - `Enum.map([1, 2, 3], fn number -> numer + 3 end)`
+      - after capture operator
+        - `Enum.map([1, 2, 3], &(&1 + 3))`
