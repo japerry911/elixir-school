@@ -1,0 +1,10 @@
+- match operator
+  - `=` is match operator
+  - example
+    - `[x, y, z] = [1, 2, 3]`
+      - `x` is 1
+      - `y` is 2
+      - `z` is 3
+- pin operator
+  - `^` is pin operator
+  - pins the variable on its value and prevent any assignments to this variable when using pattern matching
