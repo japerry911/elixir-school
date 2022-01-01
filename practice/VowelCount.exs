@@ -1,6 +1,10 @@
 defmodule VowelCount do
-  def get_count(str) do
+  @vowels ["a", "e", "i", "o", "u"]
 
+  def get_count(str) do
+    String.split(str, "")
+    |> Enum.filter(&(Enum.member?(@vowels, &1)))
+    |> length
   end
 end
 
