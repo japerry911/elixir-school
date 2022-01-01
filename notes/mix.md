@@ -1,0 +1,10 @@
+- Mix is Bundler, RubyGems, and rake combined
+  - when comparing to Ruby
+- new projects
+  - `mix new <project-name>`
+  - interactive within project
+    - `cd <project-directory>`
+    - `iex -S mix`
+  - managing dependencies
+    - fetching dependencies
+      - `mix deps.get`
