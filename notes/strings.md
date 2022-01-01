@@ -1,0 +1,18 @@
+- strings
+  - nothing but a sequence of bytes
+  - if you concaentate a byte `0`, it will display a binary, since string is not valid anymore
+    - `<<bytes>>`
+  - closed with double quotes
+- charlists
+  - closed with single quotes
+  - each value in a charlist is the Unicode code point of a character whereas in a binary, the codepoints are encoded as UTF-8
+- stick to strings, charlists are mainly supported because they are required for some Erlang modules
+- string functions
+  - `length/1`
+  - `replace/3`
+  - `duplicate/2`
+  - `split/2`
+  - `graphemes/1`
+    - separates characters into list (graphemes)
+  - `is_binary/1` - check if parameter is a string
+    - use `when` syntax
