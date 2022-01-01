@@ -62,3 +62,19 @@ defmodule LanguageList do
   def count(list), do: length(list)
   def exciting_list?(list), do: "Elixir" in list
 end
+
+
+defmodule GuessingGame do
+  def compare(secret_number, guess) when is_integer(secret_number) and is_integer(guess) do
+    cond do
+      guess == secret_number -> "Correct"
+      abs(secret_number - guess) <= 1 -> "So close"
+      guess > secret_number -> "Too high"
+      guess < secret_number -> "Too low"
+    end
+  end
+
+  def compare(secret_number, guess \\ :no_guess) when is_integer(secret_number) and not is_integer(guess) do
+    "Make a guess"
+  end
+end
