@@ -1,0 +1,12 @@
+- `if` and `unless`
+  - falsy values are `nil` and `false`
+  - `if` is like usual implementation in languages
+  - `unless` works on the negative
+- `case`
+  - utilizes heavy pattern matching
+  - catch all pattern matching: `_`
+- `cond`
+  - match based on conditions
+  - catch all condition: `true`
+- `with`
+  - supports `else`
