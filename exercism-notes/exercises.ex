@@ -355,7 +355,7 @@ defmodule DateParser do
 
   def capture_month_name(), do: month_names()
 
-  def capture_numeric_date(), do: "#{capture_day()}/#{capture_month()}/#{capture_year}"
+  def capture_numeric_date(), do: "#{capture_day()}/#{capture_month()}/#{capture_year()}"
 
   def capture_month_name_date(), do: "#{capture_month_name()} #{capture_day()}, #{capture_year()}"
 
