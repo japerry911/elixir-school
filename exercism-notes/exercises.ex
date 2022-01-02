@@ -434,3 +434,39 @@ defmodule WineCellar do
     filter_by_country(tail, country)
   end
 end
+
+
+defmodule LibraryFees do
+  def datetime_from_string(string), do: NaiveDateTime.from_iso8601!(string)
+  def before_noon?(datetime), do: datetime.hour() <= 11
+  def return_date(checkout_datetime) do
+    if before_noon?(checkout_datetime) do
+      NaiveDateTime.to_date(NaiveDateTime.add(checkout_datetime, 2419200, :second))
+    else
+      NaiveDateTime.to_date(NaiveDateTime.add(checkout_datetime, 2505600, :second))
+    end
+  end
+  def days_late(planned_return_date, actual_return_datetime) do
+    days_diff = Date.diff(NaiveDateTime.to_date(actual_return_datetime), planned_return_date)
+    if days_diff <= 0 do
+      0
+    else
+      days_diff
+    end
+  end
+  def monday?(datetime) do
+    Date.day_of_week(NaiveDateTime.to_date(datetime)) == 1
+  end
+  def calculate_late_fee(checkout, return, rate) do
+    checkout_datetime = datetime_from_string(checkout)
+    return_datetime = datetime_from_string(return)
+    actual_return = return_date(checkout_datetime)
+    days_diff = days_late(actual_return, return_datetime)
+    late_fee = days_diff * rate
+    if monday?(return_datetime) do
+      trunc(late_fee - (late_fee * 0.5))
+    else
+      late_fee
+    end
+  end
+end
