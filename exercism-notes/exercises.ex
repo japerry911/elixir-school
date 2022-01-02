@@ -323,7 +323,7 @@ defmodule RPG.CharacterSheet do
 
     name = ask_name()
     class = ask_class()
-    level = ask_level
+    level = ask_level()
 
     character_map = %{class: class, level: level, name: name}
 
