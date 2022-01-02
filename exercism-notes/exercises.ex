@@ -330,3 +330,42 @@ defmodule RPG.CharacterSheet do
     IO.inspect(character_map, label: "Your character")
   end
 end
+
+
+defmodule DateParser do
+  def day(), do: "(?<day>\\d{1,2})"
+
+  def month(), do: "(?<month>\\d{1,2})"
+
+  def year(), do: "(?<year>\\d{4,4})"
+
+  def day_names(), do: "(?<day_name>Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)"
+
+  def month_names() do
+    "(?<month_name>January|February|March|April|May|June|July|August|September|October|November|December)"
+  end
+
+  def capture_day(), do: day()
+
+  def capture_month(), do: month()
+
+  def capture_year(), do: year()
+
+  def capture_day_name(), do: day_names()
+
+  def capture_month_name(), do: month_names()
+
+  def capture_numeric_date(), do: "#{capture_day()}/#{capture_month()}/#{capture_year}"
+
+  def capture_month_name_date(), do: "#{capture_month_name()} #{capture_day()}, #{capture_year()}"
+
+  def capture_day_month_name_date() do
+    "#{capture_day_name()}, #{capture_month_name()} #{capture_day()}, #{capture_year()}"
+  end
+
+  def match_numeric_date(), do: ~r/^#{capture_numeric_date()}$/
+
+  def match_month_name_date(), do: ~r/^#{capture_month_name_date()}$/
+
+  def match_day_month_name_date(), do: ~r/^#{capture_day_month_name_date()}$/
+end
