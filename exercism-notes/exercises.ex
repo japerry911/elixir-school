@@ -372,8 +372,10 @@ end
 
 
 defmodule TakeANumber do
+  @initial_state 0
+
   def start() do
-    spawn(fn -> loop(0) end)
+    spawn(fn -> loop(@initial_state) end)
   end
 
   defp loop(state) do
