@@ -266,3 +266,17 @@ defmodule Form do
     """
   end
 end
+
+defmodule Username do
+  def sanitize(username) do
+    case username do
+      [] -> []
+      [letter | tail_username] when (letter >= 97 and letter <= 122) or letter == 95 -> [letter] ++ sanitize(tail_username)
+      [letter | tail_username] when letter == 228 -> [?a] ++ [?e] ++ sanitize(tail_username)
+      [letter | tail_username] when letter == 246 -> [?o] ++ [?e] ++ sanitize(tail_username)
+      [letter | tail_username] when letter == 252 -> [?u] ++ [?e] ++ sanitize(tail_username)
+      [letter | tail_username] when letter == 223 -> [?s] ++ [?s] ++ sanitize(tail_username)
+      [_ | tail_username] -> sanitize(tail_username)
+    end
+  end
+end
