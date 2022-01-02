@@ -182,3 +182,18 @@ defmodule BirdCount do
   def busy_days([head | tail]) when head >= 5, do: 1 + busy_days(tail)
   def busy_days([head | tail]) when head < 5, do: 0 + busy_days(tail)
 end
+
+
+defmodule HighScore do
+  def new(), do: %{}
+
+  def add_player(scores, name, score \\ 0), do: Map.put(scores, name, score)
+
+  def remove_player(scores, name), do: Map.delete(scores, name)
+
+  def reset_score(scores, name), do: Map.put(scores, name, 0)
+
+  def update_score(scores, name, score), do: Map.update(scores, name, score, fn current -> current + score end)
+
+  def get_players(scores), do: Map.keys(scores)
+end
