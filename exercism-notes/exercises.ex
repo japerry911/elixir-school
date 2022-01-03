@@ -470,3 +470,20 @@ defmodule LibraryFees do
     end
   end
 end
+
+defmodule BoutiqueInventory do
+  def sort_by_price(inventory), do: Enum.sort_by(inventory, &(&1.price))
+
+  def with_missing_price(inventory), do: Enum.filter(inventory, &(&1.price == nil))
+
+  def increase_quantity(item, count) do
+    adj = Enum.map(Map.get(item, :quantity_by_size), fn ({size, cur}) -> {size, cur + count} end)
+    map_adj = Enum.into(adj, %{})
+    {_, final_map} = Map.get_and_update(item, :quantity_by_size, fn cur_key -> {cur_key, map_adj} end)
+    final_map
+  end
+
+  def total_quantity(item) do
+    Enum.reduce(Map.get(item, :quantity_by_size), 0, fn ({_k, v}, acc) -> acc + v end)
+  end
+end
