@@ -487,3 +487,42 @@ defmodule BoutiqueInventory do
     Enum.reduce(Map.get(item, :quantity_by_size), 0, fn ({_k, v}, acc) -> acc + v end)
   end
 end
+
+
+defmodule Newsletter do
+  def read_emails(path) do
+    File.read!(path)
+    |> String.split("\n")
+    |> Enum.filter(&(&1 !== ""))
+  end
+
+  def open_log(path), do: File.open!(path, [:write])
+
+  def log_sent_email(pid, email), do: IO.puts(pid, email)
+
+  def close_log(pid), do: File.close(pid)
+
+  def send_newsletter(emails_path, log_path, send_fun) do
+    open_pid = open_log(log_path)
+    emails_list = read_emails(emails_path)
+
+    send_and_log_emails(emails_list, send_fun, open_pid)
+
+    close_log(open_pid)
+  end
+
+  defp send_and_log_emails([email | []], send_fun, open_pid) do
+    case send_fun.(email) do
+      :ok -> log_sent_email(open_pid, email)
+      _ -> nil
+    end
+  end
+  defp send_and_log_emails([email | emails], send_fun, open_pid) do
+    case send_fun.(email) do
+      :ok ->
+        log_sent_email(open_pid, email)
+        send_and_log_emails(emails, send_fun, open_pid)
+      _ -> send_and_log_emails(emails, send_fun, open_pid)
+    end
+  end
+end
