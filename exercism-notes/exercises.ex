@@ -553,3 +553,30 @@ defmodule Chessboard do
     |> Enum.map(&(<<&1>>))
   end
 end
+
+
+defmodule BoutiqueSuggestions do
+
+  @doc """
+  This function calculates the cartesian product of the tops and bottom lists
+    and returns it
+
+  ## Parameters
+    - tops: List of Maps that represent top clothing
+    - bottoms: List of Maps that represent bottom clothing
+    - options: Keyword List of options
+
+  ## Returns
+    - List of Maps showing the Cartesian Product of the tops and bottoms lists
+  """
+  @spec get_combinations(list(map()), list(map()), keyword()) :: list(map())
+  def get_combinations(tops, bottoms, options \\ []) do
+    for top <- tops,
+        bottom <- bottoms,
+        top[:base_color] != bottom[:base_color] and
+        top[:price] + bottom[:price] <= Keyword.get(options, :maximum_price, 100)
+    do
+      {top, bottom}
+    end
+  end
+end
