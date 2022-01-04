@@ -604,5 +604,5 @@ defmodule Accumulate do
 
   defp accumulate_helper([], _fun), do: []
   defp accumulate_helper([head | []], fun), do: [fun.(head)]
-  defp accumulate_helper([head | list], fun), do: [fun.(head)] ++ accumulate_helper(list, fun)
+  defp accumulate_helper([head | list], fun), do: [fun.(head) | accumulate_helper(list, fun)]
 end
