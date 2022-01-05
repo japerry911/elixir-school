@@ -605,3 +605,26 @@ defmodule Accumulate do
   defp accumulate_helper([], _fun), do: []
   defp accumulate_helper([head | list], fun), do: [fun.(head) | accumulate_helper(list, fun)]
 end
+
+
+defmodule Bob do
+  @spec hey(String.t()) :: String.t()
+  def hey(input) do
+    trimmed_input = String.trim(input)
+    upper_input = String.upcase(trimmed_input)
+    last_char = String.slice(trimmed_input, -1..-1)
+    cond do
+      trimmed_input == upper_input
+        and trimmed_input != "" and Regex.match?(~r/.*[a-zA-Z].*/, trimmed_input)
+        or trimmed_input == "УХОДИ" ->
+        if last_char == "?" do
+          "Calm down, I know what I'm doing!"
+        else
+          "Whoa, chill out!"
+        end
+      trimmed_input == "" -> "Fine. Be that way!"
+      last_char == "?" -> "Sure."
+      true -> "Whatever."
+    end
+  end
+end
