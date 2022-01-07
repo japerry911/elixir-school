@@ -665,3 +665,39 @@ defmodule TwoFer do
   @spec two_fer(String.t()) :: String.t()
   def two_fer(name \\ "you") when is_binary(name), do: "One for #{name}, one for me."
 end
+
+defmodule FileSniffer do
+  def type_from_extension("exe"), do: "application/octet-stream"
+  def type_from_extension("bmp"), do: "image/bmp"
+  def type_from_extension("png"), do: "image/png"
+  def type_from_extension("jpg"), do: "image/jpg"
+  def type_from_extension("gif"), do: "image/gif"
+
+  def type_from_binary(<<body::binary-size(8), _rest::binary>>) do
+    case body do
+      <<137, 80, 78, 71, 13, 10, 26, 10>> -> "image/png"
+      <<66, 77, 30, 0, 0, 0, 0, 0>> -> "image/bmp"
+      <<71, 73, 70, 56, 57, 97, 1, 0>> -> "image/gif"
+      <<255, 216, 255, 219, 0, 67, 0, 3>> -> "image/jpg"
+      <<127, 69, 76, 70, 1, 1, 1, 0>> -> "application/octet-stream"
+      _ -> "UNKNOWN"
+    end
+  end
+
+# 137 80 78 71 13 10 26 10 -> PNG
+# 255, 216, 255, 219, 0, 67, 0, 3 -> jpg
+# 71, 73, 70, 56, 57, 97, 1, 0 -> gif
+# 66, 77, 30, 0, 0, 0, 0, 0 -> bmp
+# 127, 69, 76, 70, 1, 1, 1, 0 -> exe
+
+  def verify(file_binary, extension) do
+    binary_type = type_from_binary(file_binary)
+    extension_type = type_from_extension(extension)
+
+    if binary_type == extension_type do
+      {:ok, binary_type}
+    else
+      {:error, "Warning, file format and file extension do not match."}
+    end
+  end
+end
