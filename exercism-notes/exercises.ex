@@ -701,3 +701,37 @@ defmodule FileSniffer do
     end
   end
 end
+
+defmodule RemoteControlCar do
+  # Please implement the struct with the specified fields
+  @enforce_keys [:nickname]
+  defstruct [:nickname, battery_percentage: 100, distance_driven_in_meters: 0]
+
+  def new(nickname \\ "none"), do: %RemoteControlCar{nickname: nickname}
+
+  def display_distance(%RemoteControlCar{distance_driven_in_meters: distance_driven_in_meters}) do
+    "#{distance_driven_in_meters} meters"
+  end
+
+  def display_battery(%RemoteControlCar{battery_percentage: battery_percentage}) do
+    if battery_percentage == 0 do
+      "Battery empty"
+    else
+      "Battery at #{battery_percentage}%"
+    end
+  end
+
+  def drive(%RemoteControlCar{} = car) do
+    bat = car.battery_percentage
+
+    if bat == 0 do
+      car
+    else
+      bat = bat - 1
+      dist = car.distance_driven_in_meters + 20
+      updated_car = %{car | battery_percentage: bat }
+      updated_car = %{updated_car | distance_driven_in_meters: dist}
+      updated_car
+    end
+  end
+end
