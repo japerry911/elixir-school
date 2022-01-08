@@ -1,5 +1,9 @@
-defmodule PrinterErrors do
-  @invalid_letters Enum.filter(String.split(List.to_string(Enum.to_list(?n..?z)), ""), &(&1 != ""))
+defmodule Printererror do
+  @invalid_letters ?n..?z
+                   |> Enum.to_list()
+                   |> List.to_string()
+                   |> String.split("")
+                   |> Enum.filter(&(&1 != ""))
 
   def printer_error(s) do
     total = length(Enum.filter(String.split(s, ""), &(&1 != "")))
