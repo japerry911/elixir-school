@@ -70,3 +70,49 @@ defmodule Secrets do
     fn param -> secret_function2.(secret_function1.(param)) end
   end
 end
+
+
+defmodule FreelancerRates do
+  def daily_rate(hourly_rate) do
+    hourly_rate * 8.0
+  end
+
+  def apply_discount(before_discount, discount) do
+    before_discount - (before_discount * (discount / 100))
+  end
+
+  def monthly_rate(hourly_rate, discount) do
+    trunc(Float.ceil(apply_discount(daily_rate(hourly_rate), discount) * 22))
+  end
+
+  def days_in_budget(budget, hourly_rate, discount) do
+    Float.floor(budget / (apply_discount(daily_rate(hourly_rate), discount)), 1)
+  end
+end
+
+
+defmodule LanguageList do
+  def new() do
+    []
+  end
+
+  def add(list, language) do
+    [language | list]
+  end
+
+  def remove(list) do
+    tl(list)
+  end
+
+  def first(list) do
+    hd(list)
+  end
+
+  def count(list) do
+    length(list)
+  end
+
+  def functional_list?(list) do
+    Enum.member?(list, "Elixir")
+  end
+end
