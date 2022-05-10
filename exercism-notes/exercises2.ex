@@ -158,3 +158,50 @@ defmodule Darts do
     end
   end
 end
+
+
+defmodule GuessingGame do
+  def compare(sn, guess \\ :no_guess)
+  def compare(_sn, guess) when guess === :no_guess do
+    "Make a guess"
+  end
+  def compare(sn, guess) when guess === sn do
+    "Correct"
+  end
+  def compare(sn, guess) when guess === sn - 1 or guess === sn + 1 do
+    "So close"
+  end
+  def compare(sn, guess) when guess > sn do
+    "Too high"
+  end
+  def compare(sn, guess) when guess < sn do
+    "Too low"
+  end
+end
+
+
+
+defmodule Year do
+  @doc """
+  Returns whether 'year' is a leap year.
+
+  A leap year occurs:
+
+  on every year that is evenly divisible by 4
+    except every year that is evenly divisible by 100
+      unless the year is also evenly divisible by 400
+  """
+  @spec leap_year?(non_neg_integer) :: boolean
+  def leap_year?(year) do
+    cond do
+      divisible_by_4?(year) and divisible_by_400?(year) -> true
+      divisible_by_4?(year) and divisible_by_100?(year) and divisible_by_400?(year) -> true
+      divisible_by_4?(year) and not divisible_by_100?(year) -> true
+      true -> false
+    end
+  end
+
+  defp divisible_by_4?(year), do: rem(year, 4) === 0
+  defp divisible_by_100?(year), do: rem(year, 100) === 0
+  defp divisible_by_400?(year), do: rem(year, 400) === 0
+end
