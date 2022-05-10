@@ -140,3 +140,21 @@ defmodule LogLevel do
     end
   end
 end
+
+
+defmodule Darts do
+  @type position :: {number, number}
+
+  @doc """
+  Calculate the score of a single dart hitting a target
+  """
+  @spec score(position) :: integer
+  def score({x, y}) do
+    cond do
+      abs(x) <= 0.7 and abs(y) <= 1 -> 10
+      abs(x) !== 3.6 and abs(x) <= 5 and abs(y) <= 5 -> 5
+      abs(x) <= 7 and abs(y) <= 10 -> 1
+      true -> 0
+    end
+  end
+end
