@@ -205,3 +205,26 @@ defmodule Year do
   defp divisible_by_100?(year), do: rem(year, 100) === 0
   defp divisible_by_400?(year), do: rem(year, 400) === 0
 end
+
+
+defmodule KitchenCalculator do
+  def get_volume(volume_pair) do
+    elem(volume_pair, 1)
+  end
+
+  def to_milliliter({:cup, n}), do: {:milliliter, n * 240}
+  def to_milliliter({:fluid_ounce, n}), do: {:milliliter, n * 30}
+  def to_milliliter({:teaspoon, n}), do: {:milliliter, n * 5}
+  def to_milliliter({:tablespoon, n}), do: {:milliliter, n * 15}
+  def to_milliliter({:milliliter, n}), do: {:milliliter, n}
+
+  def from_milliliter({:milliliter, n}, :cup), do: {:cup, n / 240}
+  def from_milliliter({:milliliter, n}, :fluid_ounce), do: {:fluid_ounce, n / 30}
+  def from_milliliter({:milliliter, n}, :teaspoon), do: {:teaspoon, n / 5}
+  def from_milliliter({:milliliter, n}, :tablespoon), do: {:tablespoon, n / 15}
+  def from_milliliter({:milliliter, n}, :milliliter), do: {:milliliter, n}
+
+  def convert(volume_pair, unit) do
+    {unit, get_volume(from_milliliter(to_milliliter(volume_pair), unit))}
+  end
+end
