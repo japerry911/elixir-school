@@ -293,7 +293,7 @@ defmodule BirdCount do
 
   def has_day_without_birds?([]), do: false
   def has_day_without_birds?([0]), do: true
-  def has_day_without_birds?([0, _tail]), do: true
+  def has_day_without_birds?([0 | _tail]), do: true
   def has_day_without_birds?([_head | tail]), do: has_day_without_birds?(tail)
 
   def total([]), do: 0
