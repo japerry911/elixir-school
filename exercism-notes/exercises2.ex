@@ -180,7 +180,6 @@ defmodule GuessingGame do
 end
 
 
-
 defmodule Year do
   @doc """
   Returns whether 'year' is a leap year.
@@ -251,5 +250,35 @@ defmodule HighSchoolSweetheart do
 
   def pair(full_name1, full_name2) do
     "     ******       ******\n   **      **   **      **\n **         ** **         **\n**            *            **\n**                         **\n**     #{initials(full_name1)}  +  #{initials(full_name2)}     **\n **                       **\n   **                   **\n     **               **\n       **           **\n         **       **\n           **   **\n             ***\n              *\n"
+  end
+end
+
+
+
+defmodule HighScore do
+  @default_score 0
+
+  def new() do
+    %{}
+  end
+
+  def add_player(scores, name, score \\ @default_score) do
+    Map.put(scores, name, score)
+  end
+
+  def remove_player(scores, name) do
+    Map.delete(scores, name)
+  end
+
+  def reset_score(scores, name) do
+    Map.put(scores, name, 0)
+  end
+
+  def update_score(scores, name, score) do
+    Map.update(scores, name, score, &(&1 + score))
+  end
+
+  def get_players(scores) do
+    Map.keys(scores)
   end
 end
